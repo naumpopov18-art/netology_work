@@ -1,5 +1,6 @@
 import os
 from datetime import datetime
+import types
 
 
 #1 Задание
@@ -64,7 +65,7 @@ if __name__ == '__main__':
 
 
 #2 задание
-def logger(path):
+def logger_with_path(path):
 
     def __logger(old_function):
         def new_function(*args, **kwargs):
@@ -94,15 +95,15 @@ def test_2():
         if os.path.exists(path):
             os.remove(path)
 
-        @logger(path)
+        @logger_with_path(path)
         def hello_world():
             return 'Hello World'
 
-        @logger(path)
+        @logger_with_path(path)
         def summator(a, b=0):
             return a + b
 
-        @logger(path)
+        @logger_with_path(path)
         def div(a, b):
             return a / b
 
@@ -127,14 +128,10 @@ def test_2():
             assert str(item) in log_file_content, f'{item} должен быть записан в файл'
 
 
-if __name__ == '__main__':
-    test_2()
-
-
 #3 задание
 
 
-@logger('flat_generator.log')
+@logger_with_path('flat_generator.log')
 def flat_generator(list_of_lists):
     for lists in list_of_lists:
         for i in lists:
@@ -142,7 +139,7 @@ def flat_generator(list_of_lists):
             yield i
 
 
-def test_2():
+def test_3():
     list_of_lists_1 = [
         ['a', 'b', 'c'],
         ['d', 'e', 'f', 'h', False],
@@ -161,4 +158,4 @@ def test_2():
 
 if __name__ == '__main__':
     test_2()
-
+    test_3()
